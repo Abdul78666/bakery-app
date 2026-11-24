@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Project guide · Bakery Order Desk</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header><div class="bar"><a href="index.html">Bakery Order Desk</a><a href="InstagramOrders_Monday.html">Monday DM sample</a></div></header>
+<main>
+<h1>Project guide</h1>
+<section class="panel history">
+<h2>Run the demo</h2>
+<ol>
+<li>Open <a href="index.html">the dashboard</a> and select <strong>Fetch DMs</strong>. If opening the page directly from disk, select the included Monday HTML file in the picker.</li>
+<li>Accept Jasmine or Patel individually, reject a request, or use <strong>Accept all and go to next day</strong>. Okafor has only one day of notice. Brown’s change and Moreau’s cancellation are applied at import.</li>
+<li>Book a helper on an eligible day. Its capacity increases from 8 to 12 hours, and weekly helper costs increase by $100.</li>
+<li>Advance to close the current day at 5 PM. Its accepted orders move to <strong>Picked up</strong>, and sales remain in the pickup week.</li>
+</ol>
+<p>The demo starts on Monday, November 23, 2026. Progress is stored in this browser. The supplied wireframe provided the opening bookings and three new requests. The original Instagram file was unavailable, so the included sample recreates those requests and adds a change and cancellation. Fetch reads the sample file. Live Instagram access would require a connected Instagram account and a separate integration.</p>
+</section>
+<section class="panel history">
+<h2>Wireframe and usability review</h2>
+<pre>Current date          Fetch DMs | Accept all and go to next day
+Today's pickups       New requests with pickup date and actions
+Upcoming pickups      Booked time, time left, helper controls
+Changes/cancellations Weekly sales and helper costs
+Order history</pre>
+<p>The primary action stays by the simulated date. Each request shows its pickup date and eligibility beside its controls. Ineligible buttons have a visible reason. On narrow screens the two-column panels stack and the calendar wraps.</p>
+</section>
+<section class="panel history">
+<h2>Order lifecycle</h2>
+<pre>Fetch → Requested or Incompatible
+Requested or Incompatible → Accepted when all checks pass
+Requested or Incompatible → Rejected by the baker
+Open order → Cancelled when notice passes
+Accepted → Picked up at simulated 5 PM</pre>
+<p>Valid changes update the existing order. A move or change must meet notice for both dates and fit the destination oven capacity. The app excludes the original order from the capacity check. Pending requests do not reserve oven time. Bulk acceptance rechecks each request in receipt order, so a previously eligible request can become incompatible. Booking a helper can make a capacity-blocked request eligible.</p>
+</section>
+<section class="panel history">
+<h2>Data model</h2>
+<pre>Day [date]  1 ─── many  Order [id, pickup date]
+Order      1 ─── many  DM [id, order reference]</pre>
+<p>Orders store customer, product, quantity, pickup date, request date, and status. Helper bookings store the date. The inbox stores each processed DM and its outcome. The product catalog defines prices and oven minutes once. Day capacity, order counts, oven load, sales, and helper costs are derived from these records.</p>
+<p>Before importing Monday’s sample, Friday has 5 hours booked and 3 hours left. The opening week has $1,880 in sales and $0 in helper costs.</p>
+</section>
+<section class="panel history">
+<h2>Import format</h2>
+<p>Import a JSON array, or an HTML file containing that array in a script element with the ID <code>instagram-messages</code> and type <code>application/json</code>. Refer to the <a href="InstagramOrders_Monday.html">sample</a> for the field names. Dates use YYYY-MM-DD. Quantities are whole cakes or dozens of cupcakes. Changes and cancellations reference an existing order ID, which is the original DM ID for imported orders. Seed order IDs are lowercase customer names. To process a future-dated file, import it again on or after its send date.</p>
+</section>
+<section class="panel history">
+<h2>Regression tests</h2>
+<p>From the bakery-orders folder, run <code>node --test</code>. The suite covers imports, notice and capacity boundaries, bulk acceptance, changes and cancellations, helper booking, sales, and pickup transitions.</p>
+</section>
+</main>
+</body>
+</html>

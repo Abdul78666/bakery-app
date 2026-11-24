@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bakery Order Desk</title>
+<meta name="description" content="Manage bakery pickup orders, oven time, and helper bookings.">
+<link rel="stylesheet" href="style.css">
+<script defer src="rules.js"></script>
+<script defer src="demo.js"></script>
+<script defer src="app.js"></script>
+</head>
+<body>
+<header><div class="bar"><a href="index.html">Bakery Order Desk</a><a href="README.html">Project guide</a></div></header>
+<main>
+  <section class="intro" aria-labelledby="today">
+    <div><p class="eyebrow">PICKUP SCHEDULE</p><h1 id="today"></h1></div>
+    <div class="actions">
+      <button id="fetch">Fetch DMs</button>
+      <button id="advance" class="primary">Accept all and go to next day</button>
+      <input type="file" id="file" accept=".html,.json" hidden>
+    </div>
+  </section>
+  <p id="feedback" role="status"></p>
+  <div class="desk">
+    <section class="panel today" aria-labelledby="pickup-label"><h2 id="pickup-label">Today’s pickups</h2><div id="pickup"></div></section>
+    <section class="panel" aria-labelledby="inbox-label"><h2 id="inbox-label">New requests</h2><div id="requests"></div></section>
+  </div>
+  <section class="schedule" aria-labelledby="calendar-label"><h2 id="calendar-label">Upcoming pickups</h2><div id="calendar"></div></section>
+  <div class="desk lower">
+    <section class="panel" aria-labelledby="changes-label"><h2 id="changes-label">Changes and cancellations</h2><div id="changes"></div></section>
+    <section class="panel" aria-labelledby="money-label"><h2 id="money-label">Sales and helper costs</h2><div id="money"></div></section>
+  </div>
+  <section class="panel history" aria-labelledby="history-label"><h2 id="history-label">Order history</h2><div id="history"></div></section>
+  <footer><button id="import">Import DM file</button><span>Demo starts on November 23, 2026. Pickups close at 5 PM when you advance.</span></footer>
+</main>
+</body>
+</html>
